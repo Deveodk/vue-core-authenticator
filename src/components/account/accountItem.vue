@@ -1,7 +1,7 @@
 <template>
     <div class="login-chooser" @click="selected(account)">
         <div class="login-identity">
-            <core-avatar v-if="account.profile_pictures" :profilePicture="account.profile_pictures.data[0].url"></core-avatar>
+            <core-avatar v-if="account.profile_pictures.data.length" :profilePicture="account.profile_pictures.data[0].url"></core-avatar>
             <core-avatar v-else :initials="account.initials"></core-avatar>
         </div>
         <div class="identity-name">

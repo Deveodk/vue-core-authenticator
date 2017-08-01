@@ -27,7 +27,7 @@ function plugin (Vue, options) {
             loginData: { url: options.baseURL + '/auth/login', method: 'POST' },
             fetchData: { url: options.baseURL + '/auth/user', method: 'GET' },
             refreshData: { enabled: true, interval: 60, url: options.baseURL + '/auth/refresh', method: 'GET' },
-            logoutData: { url: options.baseURL + '/auth/logout', method: 'POST', makeRequest: true },
+            logoutData: { url: options.baseURL + '/auth/logout', method: 'POST', makeRequest: true, redirect: { name: 'Login' }},
             authRedirect: { name: 'Login' },
             notFoundRedirect: { name: 'NotFound' },
             tokenName: 'core-auth',
