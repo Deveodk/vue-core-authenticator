@@ -1,12 +1,13 @@
 <template>
     <div>
         <div class="form-group">
-                <div class="col-xs-12">
+                <div class="col-xs-12 core-password-form">
                     <input type="password"
                            class="form-control"
                            :placeholder="passwordPlaceholder"
                            v-model="data.password"
-                           @keyup.enter="login">
+                           @keyup.enter="login"
+                           ref="password">
                 </div>
             </div>
 
@@ -77,6 +78,7 @@
         },
         mounted () {
             eventHub.$emit('accountFlowOn')
+            this.$refs.password.focus()
         },
         beforeDestroy () {
             eventHub.$emit('accountFlowOff')

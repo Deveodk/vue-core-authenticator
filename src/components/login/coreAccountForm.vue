@@ -2,13 +2,14 @@
     <div>
         <div v-if="!accounts.length">
             <div class="form-group">
-                <div class="col-xs-12">
+                <div class="col-xs-12 core-account-form">
                     <input type="email"
                            class="form-control"
                            id="email"
                            :placeholder="emailPlaceholder"
                            v-model="data.email"
-                           @keyup.enter="getAccounts">
+                           @keyup.enter="getAccounts"
+                           ref="email">
                 </div>
             </div>
 
@@ -42,6 +43,9 @@
                 loading: false
             }
         },
+        mounted () {
+            this.$refs.email.focus()
+        },
         props: {
             emailPlaceholder: {
                 type: String,
@@ -54,7 +58,7 @@
         },
         watch: {
             data: {
-                handler: function() {
+                handler: function () {
                     this.clearErrors()
                 },
                 deep: true
@@ -78,11 +82,11 @@
                         this.$emit('error', error.response.data)
                     }
                     if (error.response.status === 404) {
-                        let formatted = {message: [error.response.data.message]}
+                        const formatted = { message: [error.response.data.message] }
                         this.$emit('error', formatted)
                     }
                 })
-            },
+            }
         }
     }
 </script>

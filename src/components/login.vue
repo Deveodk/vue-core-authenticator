@@ -33,12 +33,12 @@
         <div v-if="!accountFlow">
             <div class="form-group magic-link-wrapper" v-if="!magicLink">
                 <div class="col-sm-12 text-center">
-                    <p>{{magicLinkShowLabel}} <a href="#" @click="toggleMagicLink(true)" class="text-primary m-l-5"><b>{{magicLinkShowLink}}</b></a></p>
+                    <p class="magic-link-label">{{magicLinkShowLabel}} <a href="#" @click="toggleMagicLink(true)" class="text-primary m-l-5"><b>{{magicLinkShowLink}}</b></a></p>
                 </div>
             </div>
             <div class="form-group" v-else>
                 <div class="col-sm-12 text-center">
-                    <p>{{loginFormShowLabel}} <a href="#" @click="toggleMagicLink(false)" class="text-primary m-l-5"><b>{{loginFormShowLink}}</b></a></p>
+                    <p class="login-form-label">{{loginFormShowLabel}} <a href="#" @click="toggleMagicLink(false)" class="text-primary m-l-5"><b>{{loginFormShowLink}}</b></a></p>
                 </div>
             </div>
         </div>
@@ -56,15 +56,13 @@
 </style>
 <script>
     import eventHub from '../eventHub'
-
     import coreLoginForm from './login/coreLoginForm.vue'
     import OAuthCallback from './oAuthCallback.vue'
     import magicLinkCreate from './login/magicLinkCreate.vue'
-    import magicLinkAuthentication from './magicLink.vue'
     import oAuth2 from './login/oAuthForm.vue'
-    import MagicLinkAuth from "./magicLink";
+    import MagicLinkAuth from './magicLink'
 
-    export default {
+export default {
         name: 'coreLogin',
         components: {
             MagicLinkAuth,
