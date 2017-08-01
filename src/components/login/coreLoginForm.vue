@@ -1,6 +1,7 @@
 <template>
     <div>
         <core-account-form v-if="!Object.keys(account).length"
+                           :promptLabel="promptLabel"
                            @selected="setAccount($event)"
                            :emailPlaceholder="emailPlaceholder"
                            :nextButton="nextButton"
@@ -31,6 +32,10 @@
         },
         name: 'coreLoginForm',
         props: {
+            promptLabel: {
+                type: String,
+                required: true
+            },
             nextButton: {
                 type: String,
                 required: true

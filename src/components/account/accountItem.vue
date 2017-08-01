@@ -3,6 +3,9 @@
         <div class="login-identity">
             <core-avatar v-if="account.profile_pictures.data.length" :profilePicture="account.profile_pictures.data[0].url"></core-avatar>
             <core-avatar v-else :initials="account.initials"></core-avatar>
+            <div class="user-role">
+                {{ account.label }}
+            </div>
         </div>
         <div class="identity-name">
             {{ account.fullname }}
@@ -41,6 +44,18 @@
     }
 </script>
 <style>
+    .user-role{
+        font-size: 9px;
+        position: absolute;
+        width: 50px;
+        text-align: center;
+        margin-top: -10px;
+        background: #5d9cec;
+        color: #fff;
+        padding: 0;
+        line-height: 16px;
+        border-radius: 2px;
+    }
     .login-chooser{
         height: 70px;
         padding: 10px;

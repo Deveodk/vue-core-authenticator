@@ -12,6 +12,7 @@
         </o-auth-callback>
         <div v-else>
         <core-login-form v-if="!magicLink" @error="setError($event)"
+                :promptLabel="accountPromptLabel"
                 :emailPlaceholder="emailPlaceholder"
                 :forgotPasswordLabel="forgotPasswordLabel"
                 :forgotPasswordRouteName="forgotPasswordRouteName"
@@ -93,6 +94,10 @@ export default {
             emailPlaceholder: {
                 type: String,
                 default: 'E-mail'
+            },
+            accountPromptLabel: {
+                type: String,
+                default: 'Choose account'
             },
             passwordPlaceholder: {
                 type: String,

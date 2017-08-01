@@ -27,7 +27,7 @@
         <div v-else>
            <core-account-chooser @selected="$emit('selected', $event)"
                                  :accounts="accounts"
-                                 promptLabel="Choose account"
+                                 :promptLabel="promptLabel"
                                  @clearAccount="accounts = []"></core-account-chooser>
         </div>
     </div>
@@ -52,6 +52,10 @@
                 required: true
             },
             nextButton: {
+                type: String,
+                required: true
+            },
+            promptLabel: {
                 type: String,
                 required: true
             }
