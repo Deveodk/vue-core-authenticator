@@ -63,15 +63,15 @@ function plugin (Vue, options) {
             return options[data]
         }
     }
-    /*
+
     // Define core prototypes
    Object.defineProperties(Vue.prototype, {
-        $coreAuth: {
+        $core: {
             get: () => {
                 return Auth
             }
         }
-    }) */
+    })
 }
 
 // Install by default if using the script tag

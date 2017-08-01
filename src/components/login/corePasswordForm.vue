@@ -23,7 +23,7 @@
         </div>
         <div class="form-group text-center m-t-20">
             <div class="col-sm-12 text-center">
-                <span @click="$emit('clearAccount')">
+                <span @click="$emit('back')">
                     <i class="fa fa-chevron-left fa-fw"></i>
                 </span>
             </div>
@@ -83,7 +83,7 @@
         },
         watch: {
             data: {
-                handler: function() {
+                handler: function () {
                     this.clearErrors()
                 },
                 deep: true
@@ -106,18 +106,18 @@
                             this.$emit('error', error.response.data)
                         }
                         if (error.response.status === 401) {
-                            const formatted = {message: [error.response.data.message]}
+                            const formatted = { message: [error.response.data.message] }
                             this.$emit('error', formatted)
                         }
                         if (error.response.status === 429) {
-                            const formatted = {message: [error.response.data.message]}
+                            const formatted = { message: [error.response.data.message] }
                             this.$emit('error', formatted)
                         }
                     },
                     rememberMe: this.data.remember,
                     fetchUser: true
                 })
-            },
+            }
         }
     }
 </script>

@@ -14,7 +14,11 @@
                                @error="setError($event)">
             </core-account-form>
             <div v-else>
-                <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+                <div class="form-group text-center m-t-20">
+                    <div class="col-xs-12">
+                        <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+                    </div>
+                </div>
             </div>
         </div>
         <div v-else>
@@ -30,6 +34,7 @@
 <script>
     import coreAccountForm from './login/coreAccountForm.vue'
     import passwordResetForm from './login/passwordResetForm.vue'
+    import errorMixin from '../mixins/errorMixin'
     import axios from 'axios'
     export default {
         name: 'makeResetLink',
@@ -71,9 +76,13 @@
                 default: 'Repeat password'
             }
         },
+        mixins: [errorMixin],
         mounted () {
             this.setLocation()
             this.checkForToken()
+        },
+        beforeDestroy () {
+            this.$off('error')
         },
         data () {
           return {
@@ -97,6 +106,8 @@
                     this.$toastr('success', this.emailSent, 'success')
                 }, (error) => {
                     this.$toastr('error', error.response.data.message, 'error')
+                    this.setError(this.setErrors(error))
+                    this.account = []
                 })
             },
             setAccount (account) {

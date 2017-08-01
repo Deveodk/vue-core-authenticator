@@ -22,7 +22,7 @@
                 code: '',
                 accessToken: '',
                 loading: false,
-                accounts: [],
+                accounts: []
             }
         },
         props: {
@@ -49,7 +49,7 @@
                 }).then((response) => {
                     this.accessToken = response.data.data.access_token
                     this.getAccounts(response.data.data.email)
-                }, (error) => {
+                }).catch((error) => {
                     this.setErrors(error)
                     this.goToLogin()
                 })
@@ -71,7 +71,7 @@
             },
             getAccounts (email) {
                 this.loading = true
-                this.axios.post(this.$coreAuthOptions('baseURL') + '/auth/accounts', {email: email}).then((response) => {
+                this.axios.post(this.$coreAuthOptions('baseURL') + '/auth/accounts', { email: email }).then((response) => {
                     this.accounts = response.data.data
                     if (response.data.data.length === 1) {
                         this.accounts = []

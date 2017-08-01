@@ -19,16 +19,54 @@ import VueAuth from '@websanova/vue-auth'
             facebookOauth2Data: options.facebookOauth2Data,
             googleOauth2Data: options.googleOauth2Data
         }, options.router)
-        // definePrototype(Vue)
+
+        Vue.router.beforeEach((to, from, next) => {
+            if (to.meta.core === undefined) {
+                return next()
+            }
+
+            const roles = Vue.prototype.$auth.user().roles
+
+            if (roleCheck(to.meta.core, roles, Vue.prototype.$auth)) {
+                return next()
+            } else {
+                if (Vue.prototype.$auth.check()) {
+                    return next(options.authRedirect)
+                }
+                return next(options.forbiddenRedirect)
+            }
+        })
+
+        definePrototype(Vue)
     }
 
-    function definePrototype (Vue, vm) {
-        CoreAuth.prototype.login = (data) => {
-            return vm.login(data)
+    function roleCheck (check, userRoles, auth) {
+        const authCheck = auth.check()
+        if (check === undefined) {
+            return authCheck
         }
 
-        CoreAuth.prototype.user = () => {
-            return Vue.prototype.$auth.user()
+        if (check === false || check === true) {
+            if (check === true) {
+                return !!authCheck
+            }
+            if (check === false) {
+                return !authCheck
+            }
+        }
+
+        const roles = userRoles
+        for (let i = 0; i < roles.length; i++) {
+            if (check.indexOf(roles[i].name) !== -1) {
+                return true
+            }
+        }
+        return false
+    }
+
+    function definePrototype (Vue) {
+        CoreAuth.prototype.check = (role) => {
+            return roleCheck(role, Vue.prototype.$auth.user().roles, Vue.prototype.$auth)
         }
     }
 

@@ -39,7 +39,7 @@
         },
         watch: {
             data: {
-                handler: function() {
+                handler: function () {
                     this.clearErrors()
                 },
                 deep: true
@@ -61,10 +61,8 @@
         methods: {
             generateMagicLink () {
                 axios.post(this.$coreAuthOptions('baseURL') + '/auth/magic_link', this.data).then((response) => {
-                }, (error) => {
-                    if (error.response.status === 422) {
-                        this.$emit('error', error.response.data)
-                    }
+                }).catch((error) => {
+                    this.setErrors(error)
                 })
             },
             setAccount (account) {
