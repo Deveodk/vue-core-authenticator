@@ -27,6 +27,10 @@ import VueAuth from '@websanova/vue-auth'
 
             const roles = Vue.prototype.$auth.user().roles
 
+            if (roles === undefined) {
+                return next(options.authRedirect)
+            }
+
             if (roleCheck(to.meta.core, roles, Vue.prototype.$auth)) {
                 return next()
             } else {

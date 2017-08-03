@@ -1,6 +1,6 @@
 {
   "name": "@deveodk/vue-core-authenticator",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Vue plugin for deveo core authentication",
   "author": "Jason Kelly <jk@deveo.dk>",
   "main": "dist/@deveodk/vue-core-authenticator.common.js",
