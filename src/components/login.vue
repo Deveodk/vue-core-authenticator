@@ -1,14 +1,14 @@
 <template>
     <div class="core-auth">
         <transition-group name="fade" tag="p">
-            <div class="alert alert-danger" role="alert" v-for="error in errors" v-bind:key="error">
+            <div class="alert alert-danger" role="alert" v-for="(error, index) in errors" v-bind:key="index">
                 <span class="fa fa-warning" aria-hidden="true"></span>
                 {{error[0]}}
             </div>
         </transition-group>
         <magic-link-auth v-if="magicToken" @error="setError($event)">
         </magic-link-auth>
-        <o-auth-callback v-else-if="oAuthCode" @back="oAuthCode = false" promptLabel="Choose account" @error="setError($event)">
+        <o-auth-callback v-else-if="oAuthCode" @back="oAuthCode = false" :promptLabel="accountPromptLabel" @error="setError($event)">
         </o-auth-callback>
         <div v-else>
         <core-login-form v-if="!magicLink" @error="setError($event)"
@@ -26,7 +26,8 @@
                 :emailPlaceholder="emailPlaceholder"
                 :magicLinkButton="magicLinkButton"
                 :magicLinkRedirect="magicLinkRedirect"
-                :magicLinkInstructions="magicLinkInstructions">
+                :magicLinkInstructions="magicLinkInstructions"
+                :promptLabel="accountPromptLabel">
         </magic-link-create>
 
         <o-auth2 v-if="!accountFlow && !magicLink"></o-auth2>

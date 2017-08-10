@@ -20,11 +20,11 @@ function plugin (Vue, options) {
             auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
             http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
             router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
-            baseURL: 'http://localhost:8000',
+            baseURL: '',
             facebookClientId: '',
             googleClientId: '',
-            oAuth2RedirectUrl: window.location.origin + window.location.pathname,
-            loginData: { url: options.baseURL + '/auth/login', method: 'POST' },
+            oAuth2RedirectUrl: window.location.origin + Vue.router.resolve({ name: 'Login' }).href,
+            loginData: { url: options.baseURL + '/auth/login', method: 'POST', redirect: { name: 'Dashboard' }},
             fetchData: { url: options.baseURL + '/auth/user', method: 'GET' },
             refreshData: { enabled: true, interval: 60, url: options.baseURL + '/auth/refresh', method: 'GET' },
             logoutData: { url: options.baseURL + '/auth/logout', method: 'POST', makeRequest: true, redirect: { name: 'Login' }},
@@ -53,6 +53,10 @@ function plugin (Vue, options) {
             }
     }
     options = utils.extend(defaultOptions, [options || {}])
+
+    if (options.baseURL === '') {
+        console.warn('baseURL must be set')
+    }
 
     // Create a new instance of CoreAuth
     const Auth = new CoreAuth(Vue, options)

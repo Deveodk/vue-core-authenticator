@@ -77,14 +77,14 @@
             }
         },
         methods: {
-            clearErrors () {
-                this.$emit('error', [])
-            },
             checkForToken () {
                 if (this.$route.query.token) {
                     this.data.token = this.$route.query.token
                     this.validateToken()
                 }
+            },
+            clearErrors () {
+                this.$emit('error', [])
             },
             validateToken () {
                 axios.get(this.$coreAuthOptions('baseURL') + '/auth/reset_password/validate/' + this.data.token).then((response) => {

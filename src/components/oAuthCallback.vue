@@ -43,9 +43,10 @@
                 this.$emit('back')
             },
             callback () {
+                const path = this.$router.currentRoute.path
                 axios.post(this.$coreAuthOptions('baseURL') + '/auth/' + this.$route.query.provider + '/validate', {
                     code: this.code,
-                    redirect_url: window.location.origin + window.location.pathname + '?provider=' + this.$route.query.provider
+                    redirect_url: window.location.origin + path + '?provider=' + this.$route.query.provider
                 }).then((response) => {
                     this.accessToken = response.data.data.access_token
                     this.getAccounts(response.data.data.email)
@@ -55,12 +56,13 @@
                 })
             },
             login (account) {
+                const path = this.$router.currentRoute.path
                 this.$auth.oauth2({
                     code: true,
                     provider: this.$route.query.provider,
                     data: {
                         access_token: this.accessToken,
-                        redirect_url: window.location.origin + window.location.pathname,
+                        redirect_url: window.location.origin + path,
                         model: account.model
                     },
                     error: (error) => {

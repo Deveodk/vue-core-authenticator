@@ -4,7 +4,8 @@
                            @selected="setAccount($event)"
                            :emailPlaceholder="emailPlaceholder"
                            :nextButton="magicLinkButton"
-                           @error="setError($event)">
+                           @error="setError($event)"
+                           :promptLabel="promptLabel">
         </core-account-from>
         <div v-else>
             <h4>{{ magicLinkInstructions }}</h4>
@@ -35,6 +36,10 @@
             magicLinkInstructions: {
                type: String,
                required: true
+            },
+            promptLabel: {
+               type: String,
+                required: true
             }
         },
         watch: {

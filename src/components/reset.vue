@@ -1,7 +1,7 @@
 <template>
     <div class="core-auth">
         <transition-group name="fade" tag="p">
-            <div class="alert alert-danger" role="alert" v-for="error in errors" v-bind:key="error">
+            <div class="alert alert-danger" role="alert" v-for="(error, index) in errors" v-bind:key="index">
                 <span class="fa fa-warning" aria-hidden="true"></span>
                 {{ error[0] }}
             </div>
@@ -11,7 +11,8 @@
                                @selected="setAccount($event)"
                                :emailPlaceholder="emailPlaceholder"
                                :nextButton="resetButton"
-                               @error="setError($event)">
+                               @error="setError($event)"
+                               :promptLabel="accountPromptLabel">
             </core-account-form>
             <div v-else>
                 <div class="form-group text-center m-t-20">
@@ -74,12 +75,15 @@
             passwordConfirmationPlaceholder: {
                 type: String,
                 default: 'Repeat password'
+            },
+            accountPromptLabel: {
+                type: String,
+                default: 'Choose account'
             }
         },
         mixins: [errorMixin],
         mounted () {
             this.setLocation()
-            this.checkForToken()
         },
         beforeDestroy () {
             this.$off('error')
